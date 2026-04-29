@@ -1,32 +1,28 @@
 package application;
 
-
-
-import entities.Employee;
-
+import entities.Aluno;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        Employee employee = new Employee();
+        Aluno aluno = new Aluno();
 
         System.out.print("Name: ");
-        employee.name = sc.nextLine();
-        System.out.print("Gross Salary: ");
-        employee.grossSalary = sc.nextDouble();
-        System.out.print("Tax: ");
-        employee.tax = sc.nextDouble();
+        aluno.name = sc.nextLine();
 
-        System.out.println(" ");
-        System.out.println(employee);
+        System.out.print("Nota 1: ");
+        aluno.nota1 = sc.nextDouble();
+        System.out.print("Nota 2: ");
+        aluno.nota2 = sc.nextDouble();
+        System.out.print("Nota 3: ");
+        aluno.nota3 = sc.nextDouble();
 
-        System.out.print("Which percentage to increase salary? ");
-        double percentage = sc.nextDouble();
-        employee.increaseSalary(percentage);
+        System.out.println(aluno.notaFinal());
 
-        System.out.println("Updated data: " + employee.name + ", "+ String.format("%.2f", employee.newSalary));
+
+
 
         sc.close();
 
