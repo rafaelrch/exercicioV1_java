@@ -1,6 +1,8 @@
 package application;
 
-import entities.Rectangle;
+
+
+import entities.Employee;
 
 import java.util.Scanner;
 
@@ -8,18 +10,23 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        Rectangle rectangle = new Rectangle();
+        Employee employee = new Employee();
 
-        System.out.println("Enter rectangle width and height: ");
-        rectangle.width = sc.nextDouble();
-        rectangle.height = sc.nextDouble();
+        System.out.print("Name: ");
+        employee.name = sc.nextLine();
+        System.out.print("Gross Salary: ");
+        employee.grossSalary = sc.nextDouble();
+        System.out.print("Tax: ");
+        employee.tax = sc.nextDouble();
 
-        rectangle.area();
-        rectangle.perimeter();
-        rectangle.diagonal();
+        System.out.println(" ");
+        System.out.println(employee);
 
-        System.out.println(rectangle);
+        System.out.print("Which percentage to increase salary? ");
+        double percentage = sc.nextDouble();
+        employee.increaseSalary(percentage);
 
+        System.out.println("Updated data: " + employee.name + ", "+ String.format("%.2f", employee.newSalary));
 
         sc.close();
 
