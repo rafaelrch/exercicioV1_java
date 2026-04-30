@@ -1,14 +1,29 @@
 package entities;
 
-public class Usuario {
+public class Account {
 
     private String nome;
     private int numConta;
     private double saldo;
-    public double dinheiroDepositado;
-    public double dinheiroSacado;
 
-    public String getNome(){
+    /*
+    public double dinheiroDepositado;
+    public double dinheiroSacado; */
+
+
+
+    public Account(int numConta, String nome){
+        this.numConta = numConta;
+        this.nome = nome;
+    }
+
+    public Account(int numConta, String nome, double initialDeposit){
+        this.numConta = numConta;
+        this.nome = nome;
+        depositar(initialDeposit);
+    }
+
+    public String getNome() {
         return nome;
     }
 
@@ -16,39 +31,25 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public int getNumConta() {
-        return numConta;
-    }
-
-    public void setNumConta(int numConta) {
-        this.numConta = numConta;
-    }
-
     public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
+    public int getNumConta() {
+        return numConta;
     }
 
-    public double getDinheiroDepositado(){
-        return dinheiroDepositado;
+    public void depositar(double amount){
+        saldo += amount;
     }
 
-    public void setDinheiroDepositado(double dinheiroDepositado) {
-        this.dinheiroDepositado = dinheiroDepositado;
+    public void sacar(double amount){
+        saldo -= amount + 5.0;
     }
 
-    public double getDinheiroSacado(){
-        return dinheiroSacado;
-    }
 
-    public void setDinheiroSacado(double dinheiroSacado) {
-        this.dinheiroSacado = dinheiroSacado;
-    }
 
-    public void depositar(double dinheiroDepositado){
+    /*    public void depositar(double dinheiroDepositado){
         saldo += dinheiroDepositado;
     }
 
@@ -61,7 +62,7 @@ public class Usuario {
             saldo -= dinheiroSacado;
         }
         return saldo -= taxa;
-    }
+    }*/
 
     public String toString() {
         return "Account "

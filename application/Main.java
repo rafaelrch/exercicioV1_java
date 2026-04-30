@@ -1,6 +1,6 @@
 package application;
 
-import entities.Usuario;
+import entities.Account;
 import java.util.Scanner;
 
 public class Main {
@@ -8,40 +8,45 @@ public class Main {
 
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        Usuario user = new Usuario();
-        String initialDeposit;
+        Account user;
+        String response;
         double sacado;
 
 
         System.out.print("Enter account number: ");
-        user.setNumConta(sc.nextInt());
+        int numConta = sc.nextInt();
         sc.nextLine();
         System.out.print("Enter account holder: ");
-        user.setNome(sc.nextLine());
+        String nome = sc.nextLine();
         System.out.print("Is there na initial deposit (y/n)? ");
-        initialDeposit = sc.nextLine();
+        response = sc.nextLine();
         System.out.println(" ");
 
-        if (initialDeposit.equals("y")){
+        if (response.equals("y")){
             System.out.print("Enter initial deposit value: ");
-            user.depositar(sc.nextDouble());
+            double initialDeposit = sc.nextDouble();
+            user = new Account(numConta, nome, initialDeposit);
+        }else{
+            user = new Account(numConta, nome);
         }
 
         System.out.println("Account data: ");
-        System.out.println(user.toString());
+        System.out.println(user);
 
         System.out.print("Enter a deposit value: ");
-        user.depositar(sc.nextDouble());
+        double depositValue = sc.nextDouble();
+        user.depositar(depositValue);
 
         System.out.println(" ");
         System.out.println("Updated account data:");
-        System.out.println(user.toString());
+        System.out.println(user);
 
         System.out.println(" ");
         System.out.print("Enter a withdraw value: ");
-        sacado = sc.nextDouble();
-        user.sacar(sacado);
-        System.out.println(user.toString());
+        double withdrawValue = sc.nextDouble();
+        user.sacar(withdrawValue);
+
+        System.out.println(user);
 
 
         sc.close();
