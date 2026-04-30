@@ -9,6 +9,7 @@ public class Aluno {
     public Aluno(String nome, int matricula){
         this.nome = nome;
         this.matricula = matricula;
+        this.nota = 0.0;
     }
 
     public Aluno(String nome, int matricula, double nota){
@@ -17,10 +18,10 @@ public class Aluno {
         this.nota = nota;
     }
 
-    public void situacao(double nota){
-        if(nota >= 7){
+    public void situacao(){
+        if(this.nota >= 7){
             System.out.println("APROVADO");
-        }else if(nota >= 5 && nota < 7){
+        }else if(this.nota >= 5 && this.nota < 7){
             System.out.println("RECUPERAÇÃO");
         }else{
             System.out.println("REPROVADO");

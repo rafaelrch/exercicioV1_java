@@ -16,9 +16,9 @@ public class Main {
         aluno2 = new Aluno("Maria" , 2222 , 9);
         aluno3 = new Aluno("Marcelo", 3333, 6);
 
-        aluno1.situacao(0);
-        aluno2.situacao(9);
-        aluno3.situacao(6);
+        aluno1.situacao();
+        aluno2.situacao();
+        aluno3.situacao();
         sc.close();
 
     }
