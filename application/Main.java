@@ -1,6 +1,6 @@
 package application;
 
-import entities.Livro;
+import entities.Produto;
 
 import java.util.Scanner;
 
@@ -10,12 +10,11 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        Livro livro1, livro2;
-        livro1 = new Livro();
-        livro2 = new Livro("Sapiens", "Rafael Rocha", 438);
+        Produto produto1 = new Produto("Oculos de sol", 392.90);
+        Produto produto2 = new Produto("PC", 9293.00, 2);
 
-        System.out.println(livro1);
-        System.out.println(livro2);
+        produto1.exibirInfo();
+        produto2.exibirInfo();
 
         sc.close();
 
