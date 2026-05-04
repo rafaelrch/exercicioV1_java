@@ -1,6 +1,5 @@
 package application;
 
-import entities.Pessoa;
 import java.util.Scanner;
 
 public class Main {
@@ -9,54 +8,30 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        int n, nmenores;
-        double soma, media, percentualMenors;
+        int n, qntdPares, resto;
 
-        System.out.print("Quantas pessoas serao digitadas? ");
+        System.out.print("Quantos numeros voce vai digitas? ");
         n = sc.nextInt();
-        Pessoa[] pessoas = new Pessoa[n];
-
-        for(int i = 0; i < n; i++){
-            System.out.println("Dados da " + (i+1) + "a pessoa:" );
-            sc.nextLine();
-            System.out.print("Nome: ");
-            String nome = sc.nextLine();
-
-            System.out.print("Idade: ");
-            int idade = sc.nextInt();
-
-
-            sc.nextLine();
-            System.out.print("Altura: ");
-            double altura = sc.nextDouble();
-
-            pessoas[i] = new Pessoa(nome, idade, altura);
-
-        }
-
-        soma = 0;
-        nmenores = 0;
-        for (int i = 0; i < n; i++){
-            if (pessoas[i].getIdade() < 16){
-                nmenores++;
-            }
-            soma += pessoas[i].getAltura();
-        }
-
-        media = soma / n;
-
-        percentualMenors = ((double)nmenores / n) * 100.0;
-
-        System.out.printf("Altura média: %.2f\n", media);
-        System.out.printf("Pessoas com menos de 16 anos: %.1f%%\n", percentualMenors);
-        System.out.println("Pessoas com menos de 16 anos: ");
+        int[] numInteiros = new int[n];
 
         for (int i = 0; i < n; i++){
-            if(pessoas[i].getIdade() < 16){
-                System.out.println(pessoas[i].getNome());
+            System.out.print("Digite um numero: ");
+            numInteiros[i] = sc.nextInt();
+        }
+
+        System.out.println("NUMEROS PARES:");
+
+        qntdPares = 0;
+        for (int i = 0; i < n; i++){
+            resto = numInteiros[i] % 2;
+            if(resto == 0){
+                System.out.print(numInteiros[i] + "  ");
+                qntdPares++;
             }
         }
 
+        sc.nextLine();
+        System.out.println("QUANTIDADE DE PARES = " + qntdPares);
 
 
         sc.close();
