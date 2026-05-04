@@ -1,6 +1,5 @@
 package application;
 
-import entities.Aluno;
 
 import java.util.Scanner;
 
@@ -10,15 +9,26 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        Aluno aluno1, aluno2, aluno3;
 
-        aluno1 = new Aluno("Rafael", 1111);
-        aluno2 = new Aluno("Maria" , 2222 , 9);
-        aluno3 = new Aluno("Marcelo", 3333, 6);
 
-        aluno1.situacao();
-        aluno2.situacao();
-        aluno3.situacao();
+        System.out.println("Quantos numeros voce vai digitar? ");
+        int numeros = sc.nextInt();
+        int[] nums = new int[numeros];
+
+
+        for(int i = 0; i < numeros; i++){
+            System.out.print("Digite um numero: ");
+            int addNum = sc.nextInt();
+            nums[i] = addNum;
+        }
+
+        System.out.println("NUMEROS NEGATIVOS:");
+        for (int i = 0; i< numeros; i++){
+            if(nums[i] < 0){
+                System.out.println(nums[i]);
+            }
+        }
+
         sc.close();
 
     }
