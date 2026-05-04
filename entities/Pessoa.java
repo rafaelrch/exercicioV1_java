@@ -1,10 +1,9 @@
 package entities;
 
-public class Inteiros {
+public class Pessoa {
 
     private String nome;
     private int idade;
-    private double altura;
 
     public String getNome() {
         return nome;
@@ -14,13 +13,6 @@ public class Inteiros {
         this.nome = nome;
     }
 
-    public double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(double altura) {
-        this.altura = altura;
-    }
 
     public int getIdade() {
         return idade;
@@ -30,9 +22,8 @@ public class Inteiros {
         this.idade = idade;
     }
 
-    public Inteiros(String nome, int idade, double altura){
+    public Pessoa(String nome, int idade){
         this.nome = nome;
         this.idade = idade;
-        this.altura = altura;
     }
 }

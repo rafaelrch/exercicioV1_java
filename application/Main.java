@@ -1,5 +1,7 @@
 package application;
 
+import entities.Pessoa;
+
 import java.util.Scanner;
 
 public class Main {
@@ -8,43 +10,40 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        int n, qntdPares;
-        double soma, media, resto;
+        int n, maisVelha;
+        String pessoaMaisVelha;
+
+        maisVelha = 0;
+        pessoaMaisVelha = " ";
 
 
-        resto = 0;
-        qntdPares = 0;
-        soma= 0;
-        media = 0;
 
-        System.out.print("Quantos elementos vai ter cada vetor? ");
+
+        System.out.print("Quantas pessoas voce vai digitar? ");
         n = sc.nextInt();
-        double[] vetor = new double[n];
-
-        for(int i = 0; i < n; i++){
-            System.out.print("Digite um numero: ");
-            vetor[i] = sc.nextDouble();
-        }
-
-
+        Pessoa[] pessoas = new Pessoa[n];
 
         for (int i = 0; i < n; i++){
-            resto = vetor[i] % 2;
+            System.out.println("Dados da " + (i+1) + "a pessoa:");
 
-            if(resto == 0){
-                qntdPares++;
-                soma += vetor[i];
+            sc.nextLine();
+            System.out.print("Nome: ");
+            String nome = sc.nextLine();
+
+            System.out.print("Idade: ");
+            int idade = sc.nextInt();
+
+            Pessoa pessoa = new Pessoa(nome, idade);
+            pessoas[i] = pessoa;
+
+            if(pessoas[i].getIdade() > maisVelha){
+                maisVelha = pessoas[i].getIdade();
+                pessoaMaisVelha = pessoas[i].getNome();
             }
+
         }
 
-        media = soma / qntdPares;
-
-        if(qntdPares == 0){
-            System.out.println("NENHUM NUMERO PAR");
-        }else{
-            System.out.println("MEDIA DOS PARES = " + media);
-        }
-
+        System.out.println("PESSOA MAIS VELHA: " + pessoaMaisVelha);
 
 
         sc.close();
