@@ -8,28 +8,38 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        int n, posicao;
-        double maiorValor;
+        int n, soma;
 
-        System.out.print("Quantos numeros voce vai digitas? ");
+        System.out.print("Quantos valores vai ter cada vetor? ");
         n = sc.nextInt();
-        double[] vetor = new double[n];
+        int[] vetorA = new int[n];
+        int[] vetorB = new int[n];
+        int[] vetorC = new int[n];
 
+        System.out.println("Digite os valores do vetor A:");
         for (int i = 0; i < n; i++){
-            System.out.print("Digite um numero: ");
-            vetor[i] = sc.nextDouble();
+            vetorA[i] = sc.nextInt();
         }
 
-        maiorValor = 0;
-        posicao = 0;
+        System.out.println("Digite os valores do vetor B:");
         for (int i = 0; i < n; i++){
-            if(vetor[i] > maiorValor){
-                maiorValor = vetor[i];
-                posicao = i;
-            }
+            vetorB[i] = sc.nextInt();
         }
-        System.out.println("MAIOR VALOR = " + maiorValor);
-        System.out.println("POSICAO DO MAIOR VALOR = " + posicao);
+
+        soma = 0;
+        for (int i = 0; i < n; i++){
+            soma = vetorA[i] + vetorB[i];
+            vetorC[i] = soma;
+        }
+
+        System.out.println("VETOR RESULTANTE");
+        for (int i = 0; i < n; i++){
+            System.out.println(vetorC[i]);
+        }
+
+
+
+
         sc.close();
 
     }
