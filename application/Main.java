@@ -8,34 +8,35 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        int n, soma;
+        int n;
+        double soma, media;
 
-        System.out.print("Quantos valores vai ter cada vetor? ");
+        System.out.print("Quantos elementos vai ter cada vetor? ");
         n = sc.nextInt();
-        int[] vetorA = new int[n];
-        int[] vetorB = new int[n];
-        int[] vetorC = new int[n];
+        double[] vetor = new double[n];
 
-        System.out.println("Digite os valores do vetor A:");
         for (int i = 0; i < n; i++){
-            vetorA[i] = sc.nextInt();
-        }
-
-        System.out.println("Digite os valores do vetor B:");
-        for (int i = 0; i < n; i++){
-            vetorB[i] = sc.nextInt();
+            System.out.print("Digite um numero: ");
+            vetor[i] = sc.nextDouble();
         }
 
         soma = 0;
         for (int i = 0; i < n; i++){
-            soma = vetorA[i] + vetorB[i];
-            vetorC[i] = soma;
+            soma += vetor[i];
         }
 
-        System.out.println("VETOR RESULTANTE");
+        media = soma / n;
+
+        System.out.println("MEIDA DO VETOR = " + media);
+
+        System.out.println("ELEMENTOS ABAIXO DA MEDIA:");
+
         for (int i = 0; i < n; i++){
-            System.out.println(vetorC[i]);
+            if(vetor[i] < media){
+                System.out.println(vetor[i]);
+            }
         }
+
 
 
 
