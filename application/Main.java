@@ -8,32 +8,28 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        int n, qntdPares, resto;
+        int n, posicao;
+        double maiorValor;
 
         System.out.print("Quantos numeros voce vai digitas? ");
         n = sc.nextInt();
-        int[] numInteiros = new int[n];
+        double[] vetor = new double[n];
 
         for (int i = 0; i < n; i++){
             System.out.print("Digite um numero: ");
-            numInteiros[i] = sc.nextInt();
+            vetor[i] = sc.nextDouble();
         }
 
-        System.out.println("NUMEROS PARES:");
-
-        qntdPares = 0;
+        maiorValor = 0;
+        posicao = 0;
         for (int i = 0; i < n; i++){
-            resto = numInteiros[i] % 2;
-            if(resto == 0){
-                System.out.print(numInteiros[i] + "  ");
-                qntdPares++;
+            if(vetor[i] > maiorValor){
+                maiorValor = vetor[i];
+                posicao = i;
             }
         }
-
-        sc.nextLine();
-        System.out.println("QUANTIDADE DE PARES = " + qntdPares);
-
-
+        System.out.println("MAIOR VALOR = " + maiorValor);
+        System.out.println("POSICAO DO MAIOR VALOR = " + posicao);
         sc.close();
 
     }
