@@ -1,6 +1,6 @@
 package application;
 
-
+import entities.Pessoa;
 import java.util.Scanner;
 
 public class Main {
@@ -9,36 +9,54 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        int n;
+        int n, nmenores;
+        double soma, media, percentualMenors;
 
-        System.out.println("Quantos numeros vc vai digitar?");
+        System.out.print("Quantas pessoas serao digitadas? ");
         n = sc.nextInt();
-
-        double[] numeros = new double[n];
+        Pessoa[] pessoas = new Pessoa[n];
 
         for(int i = 0; i < n; i++){
-            System.out.print("Digite um numero: ");
-            double numAdd = sc.nextDouble();
-            numeros[i] = numAdd;
+            System.out.println("Dados da " + (i+1) + "a pessoa:" );
+            sc.nextLine();
+            System.out.print("Nome: ");
+            String nome = sc.nextLine();
+
+            System.out.print("Idade: ");
+            int idade = sc.nextInt();
+
+
+            sc.nextLine();
+            System.out.print("Altura: ");
+            double altura = sc.nextDouble();
+
+            pessoas[i] = new Pessoa(nome, idade, altura);
+
         }
 
-        System.out.print("VALORES = " );
-        for(int i = 0; i < n; i++){
-            System.out.print(" " + numeros[i]);
+        soma = 0;
+        nmenores = 0;
+        for (int i = 0; i < n; i++){
+            if (pessoas[i].getIdade() < 16){
+                nmenores++;
+            }
+            soma += pessoas[i].getAltura();
         }
 
-        sc.nextLine();
-        System.out.println("SOMA = " );
-        double soma = 0;
-        for(int i = 0; i < n; i++){
-            soma += numeros[i];
+        media = soma / n;
+
+        percentualMenors = ((double)nmenores / n) * 100.0;
+
+        System.out.printf("Altura média: %.2f\n", media);
+        System.out.printf("Pessoas com menos de 16 anos: %.1f%%\n", percentualMenors);
+        System.out.println("Pessoas com menos de 16 anos: ");
+
+        for (int i = 0; i < n; i++){
+            if(pessoas[i].getIdade() < 16){
+                System.out.println(pessoas[i].getNome());
+            }
         }
 
-
-        System.out.println(soma);
-
-        double media = soma / n;
-        System.out.print("MEDIA = " + media);
 
 
         sc.close();
