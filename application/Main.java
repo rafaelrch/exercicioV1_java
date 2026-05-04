@@ -1,6 +1,6 @@
 package application;
 
-import entities.Pessoa;
+import entities.Rooms;
 
 import java.util.Scanner;
 
@@ -10,41 +10,34 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        int n, maisVelha;
-        String pessoaMaisVelha;
+        int n;
 
-        maisVelha = 0;
-        pessoaMaisVelha = " ";
-
-
-
-
-        System.out.print("Quantas pessoas voce vai digitar? ");
+        System.out.print("HOW MANY ROOMS WILL BE RENTED? ");
         n = sc.nextInt();
-        Pessoa[] pessoas = new Pessoa[n];
+        Rooms[] rooms = new Rooms[10];
 
-        for (int i = 0; i < n; i++){
-            System.out.println("Dados da " + (i+1) + "a pessoa:");
 
+
+        for(int i = 0; i < n; i++){
+            System.out.println("Rent #" + (i+1) + ":");
+            System.out.print("Name: ");
             sc.nextLine();
-            System.out.print("Nome: ");
-            String nome = sc.nextLine();
+            String name = sc.nextLine();
+            System.out.print("Email: " );
+            String email = sc.nextLine();
+            System.out.print("Room: ");
+            int room = sc.nextInt();
 
-            System.out.print("Idade: ");
-            int idade = sc.nextInt();
-
-            Pessoa pessoa = new Pessoa(nome, idade);
-            pessoas[i] = pessoa;
-
-            if(pessoas[i].getIdade() > maisVelha){
-                maisVelha = pessoas[i].getIdade();
-                pessoaMaisVelha = pessoas[i].getNome();
-            }
-
+            Rooms quarto = new Rooms(name, email, room);
+            rooms[room] = quarto;
         }
 
-        System.out.println("PESSOA MAIS VELHA: " + pessoaMaisVelha);
-
+        System.out.println("Busy rooms: ");
+        for (int i = 0; i < rooms.length; i++){
+            if (rooms[i] != null){
+                System.out.println(rooms[i]);
+            }
+        }
 
         sc.close();
 
