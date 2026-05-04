@@ -9,25 +9,37 @@ public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
+        int n;
 
+        System.out.println("Quantos numeros vc vai digitar?");
+        n = sc.nextInt();
 
-        System.out.println("Quantos numeros voce vai digitar? ");
-        int numeros = sc.nextInt();
-        int[] nums = new int[numeros];
+        double[] numeros = new double[n];
 
-
-        for(int i = 0; i < numeros; i++){
+        for(int i = 0; i < n; i++){
             System.out.print("Digite um numero: ");
-            int addNum = sc.nextInt();
-            nums[i] = addNum;
+            double numAdd = sc.nextDouble();
+            numeros[i] = numAdd;
         }
 
-        System.out.println("NUMEROS NEGATIVOS:");
-        for (int i = 0; i< numeros; i++){
-            if(nums[i] < 0){
-                System.out.println(nums[i]);
-            }
+        System.out.print("VALORES = " );
+        for(int i = 0; i < n; i++){
+            System.out.print(" " + numeros[i]);
         }
+
+        sc.nextLine();
+        System.out.println("SOMA = " );
+        double soma = 0;
+        for(int i = 0; i < n; i++){
+            soma += numeros[i];
+        }
+
+
+        System.out.println(soma);
+
+        double media = soma / n;
+        System.out.print("MEDIA = " + media);
+
 
         sc.close();
 
