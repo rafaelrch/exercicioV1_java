@@ -2,62 +2,48 @@ package application;
 
 import entities.Employee;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
 
-
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        int n;
 
-        System.out.print("How many employees will be registered? ");
-        n = sc.nextInt();
+        DateTimeFormatter  fmt2 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        List<Employee> employeeList = new ArrayList<>();
+        LocalDate d01 = LocalDate.now();
+        LocalDateTime d02 = LocalDateTime.now();
+        Instant d03 = Instant.now();
 
-        for (int i = 0; i < n; i++){
-            System.out.println("Employee #" + (i+1) + ":");
-            System.out.print("Id: ");
-            int id = sc.nextInt();
-            sc.nextLine();
-            System.out.print("Name: ");
-            String name = sc.nextLine();
-            System.out.print("Salary: ");
-            double salary = sc.nextDouble();
+        LocalDate d04 = LocalDate.parse("2026-05-06");
+        LocalDateTime d05 = LocalDateTime.parse("2026-05-06T15:52:26");
+        Instant d06 = Instant.parse("2026-05-06T15:52:26Z");
+        Instant d07 = Instant.parse("2026-05-06T15:52:26-03:00");
 
-            Employee employee = new Employee(id, name, salary);
-            employeeList.add(employee);
+        LocalDate d08 = LocalDate.parse("20/07/2022", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDateTime d09 = LocalDateTime.parse("20/07/2022 01:30", fmt2);
 
-        }
+        LocalDate d10 = LocalDate.of(2022, 7 , 20);
+        LocalDateTime d11 = LocalDateTime.of(2022, 7, 20, 1, 30);
 
-        System.out.print("Enter the employee id that will have salary increase: ");
-        int idIncrease = sc.nextInt();
-
-        List<Employee> result = employeeList.stream().filter(x -> x.getId() == idIncrease).collect(Collectors.toList());
-
-        if(result.isEmpty()){
-            System.out.println("This id does not exist!");
-        }else{
-            System.out.println("Enter the percentage: ");
-            double percentage = sc.nextDouble();
-            for(Employee x : result){
-                x.setSalary(x.getSalary() + x.getSalary() * percentage / 100);
-            }
-        }
-
-        System.out.println("List of employees:");
-        System.out.println(employeeList);
-
-
-        sc.close();
-
+        System.out.println("d01 = " + d01);
+        System.out.println("d02 = " + d02);
+        System.out.println("d03 = " + d03);
+        System.out.println("d04 = " + d04);
+        System.out.println("d05 = " + d05);
+        System.out.println("d06 = " + d06);
+        System.out.println("d07 = " + d07);
+        System.out.println("d08 = " + d08);
+        System.out.println("d09 = " + d09);
+        System.out.println("d10 = " + d10);
+        System.out.println("d11 = " + d11);
     }
-
-
-
-
 }
