@@ -1,49 +1,56 @@
 package application;
 
 import entities.Employee;
+import entities.OutsourcedEmployee;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+
 
 public class Main {
 
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        DateTimeFormatter  fmt2 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        List<Employee> list = new ArrayList<>();
 
-        LocalDate d01 = LocalDate.now();
-        LocalDateTime d02 = LocalDateTime.now();
-        Instant d03 = Instant.now();
+        System.out.println("Enter the number of employees:");
+        int n = sc.nextInt();
 
-        LocalDate d04 = LocalDate.parse("2026-05-06");
-        LocalDateTime d05 = LocalDateTime.parse("2026-05-06T15:52:26");
-        Instant d06 = Instant.parse("2026-05-06T15:52:26Z");
-        Instant d07 = Instant.parse("2026-05-06T15:52:26-03:00");
+        for(int i = 1; i <= n; i++){
+            System.out.println("Employee #" + i + " data:");
+            System.out.println("Outsourced (y/n): ");
+            char ch = sc.next().charAt(0);
+            System.out.print("Name: ");
+            sc.nextLine();
+            String name = sc.nextLine();
+            System.out.print("Hours: ");
+            int hours = sc.nextInt();
+            System.out.print("Value per hour: ");
+            double valuePerHour = sc.nextInt();
 
-        LocalDate d08 = LocalDate.parse("20/07/2022", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        LocalDateTime d09 = LocalDateTime.parse("20/07/2022 01:30", fmt2);
+            if(ch == 'y'){
+                System.out.println("Additional charge: ");
+                double additionalCharge = sc.nextDouble();
+                list.add(new OutsourcedEmployee(name, hours, valuePerHour, additionalCharge));
+            }else{
+                list.add(new Employee(name, hours, valuePerHour));
+            }
 
-        LocalDate d10 = LocalDate.of(2022, 7 , 20);
-        LocalDateTime d11 = LocalDateTime.of(2022, 7, 20, 1, 30);
+        }
 
-        System.out.println("d01 = " + d01);
-        System.out.println("d02 = " + d02);
-        System.out.println("d03 = " + d03);
-        System.out.println("d04 = " + d04);
-        System.out.println("d05 = " + d05);
-        System.out.println("d06 = " + d06);
-        System.out.println("d07 = " + d07);
-        System.out.println("d08 = " + d08);
-        System.out.println("d09 = " + d09);
-        System.out.println("d10 = " + d10);
-        System.out.println("d11 = " + d11);
+        System.out.println();
+        System.out.println("PAYMENTS:");
+
+        for(Employee emp : list){
+            System.out.println(emp.getName() + " - $ " + String.format("%.2f", emp.payment()));
+        }
+
+
+
+        sc.close();
+
+
     }
 }
