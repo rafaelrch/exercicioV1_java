@@ -1,62 +1,59 @@
 package application;
 
 
-import entities.Contibuinte;
-import entities.PessoaFisica;
-import entities.PessoaJuridica;
+import entities.Client;
+import entities.Order;
+import entities.OrderItem;
+import entities.Product;
+import enums.OrderStatus;
 
-import java.util.ArrayList;
-import java.util.Formattable;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws ParseException {
         Scanner sc = new Scanner(System.in);
 
-        int n;
-        List<Contibuinte> list = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        System.out.print("Enter the number of tax payers: ");
-        n = sc.nextInt();
+        System.out.println("Enter client data:");
+        System.out.print("Name: ");
+        String name = sc.nextLine();
+        System.out.print("Email: ");
+        String email = sc.next();
+        System.out.print("Birth date (DD/MM/YYYY): ");
+        String date = sc.next();
+        System.out.println("Enter order data:");
+        System.out.print("Status: ");
+        OrderStatus status = OrderStatus.valueOf(sc.next());
+        System.out.print("How many items to this order? ");
+        int qntdItems = sc.nextInt();
+        sc.nextLine();
 
-        for (int i = 1; i <= n; i++){
-            System.out.println("Tax payer #" + i + " data:");
-            System.out.print("Individual or campany (i/c)? ");
+        Order order = new Order(new Date(), status, new Client(name, email, sdf.parse(date)));
+
+        for (int i = 1; i <= qntdItems; i ++){
             sc.nextLine();
-            char ch =sc.next().charAt(0);
-            sc.nextLine();
-            System.out.print("Name: ");
-            String nome = sc.nextLine();
-            System.out.print("Anual income: ");
-            double rendaAnual = sc.nextDouble();
+            System.out.println("Enter #" + i + " item data:");
+            System.out.print("Product name: ");
+            String nameP = sc.nextLine();
+            System.out.print("Product price: ");
+            double priceP = sc.nextDouble();
+            System.out.print("Quantity: ");
+            int qntd = sc.nextInt();
 
-            if(ch == 'i'){
-                System.out.print("Health expenditures: ");
-                double valorSaude = sc.nextDouble();
-                list.add(new PessoaFisica(nome, rendaAnual, valorSaude));
-            }else {
-                System.out.print("Number of employees: ");
-                int nFuncionarios = sc.nextInt();
-                list.add(new PessoaJuridica(nome, rendaAnual, nFuncionarios));
-            }
+            OrderItem item = new OrderItem(qntd, priceP, new Product(nameP, priceP));
+            order.addItem(item);
         }
 
         System.out.println();
-        System.out.println("TAXES PAID:");
-        double impostoArrecadado = 0;
-        for (Contibuinte cont : list){
-            System.out.println(cont);
-            impostoArrecadado += cont.pagarImposto();
-        }
+        System.out.println(order);
 
-        System.out.println();
-        System.out.println("TOTAL TAXES: $" + impostoArrecadado);
 
         sc.close();
-
-
     }
 }
