@@ -1,57 +1,42 @@
 package application;
 
 
-import entities.Client;
-import entities.Order;
-import entities.OrderItem;
-import entities.Product;
-import enums.OrderStatus;
+import entities.Account;
+import exceptions.DomainException;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 
 public class Main {
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws DomainException {
         Scanner sc = new Scanner(System.in);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        System.out.println("Enter client data:");
-        System.out.print("Name: ");
-        String name = sc.nextLine();
-        System.out.print("Email: ");
-        String email = sc.next();
-        System.out.print("Birth date (DD/MM/YYYY): ");
-        String date = sc.next();
-        System.out.println("Enter order data:");
-        System.out.print("Status: ");
-        OrderStatus status = OrderStatus.valueOf(sc.next());
-        System.out.print("How many items to this order? ");
-        int qntdItems = sc.nextInt();
+        System.out.println("Enter account data");
+        System.out.print("Number: ");
+        int number = sc.nextInt();
+        System.out.print("Holder: ");
         sc.nextLine();
+        String holder = sc.nextLine();
+        System.out.print("Initial balance: ");
+        double initialBalance = sc.nextDouble();
+        System.out.print("Whithdraw limit: ");
+        double withdrawLimit = sc.nextDouble();
 
-        Order order = new Order(new Date(), status, new Client(name, email, sdf.parse(date)));
-
-        for (int i = 1; i <= qntdItems; i ++){
-            sc.nextLine();
-            System.out.println("Enter #" + i + " item data:");
-            System.out.print("Product name: ");
-            String nameP = sc.nextLine();
-            System.out.print("Product price: ");
-            double priceP = sc.nextDouble();
-            System.out.print("Quantity: ");
-            int qntd = sc.nextInt();
-
-            OrderItem item = new OrderItem(qntd, priceP, new Product(nameP, priceP));
-            order.addItem(item);
-        }
+        Account account = new Account(number, holder, initialBalance, withdrawLimit);
 
         System.out.println();
-        System.out.println(order);
+        System.out.print("Enter amount for withdraw: ");
+        double amount = sc.nextDouble();
+
+        try{
+            account.withDraw(amount);
+        }
+        catch (DomainException e){
+            System.out.println(e.getMessage());
+        }
 
 
         sc.close();
