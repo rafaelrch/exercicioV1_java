@@ -53,13 +53,14 @@ public class Account {
     }
 
     public void withDraw(Double amount) throws DomainException{
-        if(balance == 0 || balance < amount){
-            throw new DomainException("Withdraw error: Not enough balance!");
-        }else if(amount > getWithdrawLimit()){
+
+        if(amount > withdrawLimit){
             throw new DomainException("Withdraw error: The amount exceeds withdraw limit!");
-        }else {
-            balance -= amount;
-            System.out.println("New balance: " + String.format("%2.f", balance));
         }
+        if(amount > balance){
+            throw new DomainException("Withdraw error: Not enough balance!");
+        }
+        balance -= amount;
+        System.out.println("New balance: " + String.format("%.2f", balance));
     }
 }
