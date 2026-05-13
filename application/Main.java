@@ -1,10 +1,14 @@
 package application;
 
-import entities.Product;
-import java.io.*;
+
+import entities.Contract;
+import entities.ContractService;
+import entities.Installment;
+
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -12,49 +16,28 @@ public class Main {
     public static void main(String[] args) throws ParseException{
         Scanner sc = new Scanner(System.in);
 
-        List<Product> list = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        System.out.println("Enter file path: ");
-        String sourceFileStr = sc.nextLine();
+        System.out.println("Entre com os dados do contrato: ");
+        System.out.print("Numero: ");
+        int num = sc.nextInt();
+        System.out.print("Data (dd/MM/yyyy): ");
+        Date date = sdf.parse(sc.next());
+        System.out.print("Valor do contrato: ");
+        double valor = sc.nextDouble();
+        System.out.print("Entre com o numero de parcelas: ");
+        int parcelas = sc.nextInt();
 
-        File sourceFile = new File(sourceFileStr);
-        String sourceFolderStr = sourceFile.getParent();
+        Contract contrato = new Contract(num, date, valor);
+        ContractService service = new ContractService();
 
-        boolean success = new File(sourceFolderStr + "/out").mkdir();
+        service.processContract(contrato, parcelas);
 
-        String targetFileStr = sourceFolderStr + "/out/summary.csv";
+        System.out.println();
+        System.out.println("PARCELAS: ");
+        System.out.println(service);
 
 
-        try(BufferedReader br = new BufferedReader(new FileReader(sourceFileStr))){
-            String itemCsv  = br.readLine();
-
-            while(itemCsv != null){
-                System.out.println(itemCsv);
-                String[] fields = itemCsv.split(",");
-                String name = fields[0];
-                double price = Double.parseDouble(fields[1]);
-                int quantity = Integer.parseInt(fields[2]);
-
-                list.add(new Product(name, price, quantity));
-                itemCsv = br.readLine();
-            }
-
-            try(BufferedWriter bw = new BufferedWriter(new FileWriter(targetFileStr))){
-
-                for(Product p : list){
-                    bw.write(p.getName() + ", " + String.format("%.2f", p.total()));
-                    bw.newLine();
-                }
-
-                System.out.println(targetFileStr + " CREATED");
-            }
-            catch (IOException e) {
-                System.out.println("Error writing file: " + e.getMessage());
-            }
-        }
-        catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        }
 
         sc.close();
     }
