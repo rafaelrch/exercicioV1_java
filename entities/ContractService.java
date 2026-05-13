@@ -9,20 +9,20 @@ import java.util.List;
 
 public class ContractService {
 
-    private OnlinePaymentService service = new PaypalService();
-    List<Installment> installments = new ArrayList<>();
+    private OnlinePaymentService service;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    public ContractService() {
+    public ContractService(OnlinePaymentService service) {
+        this.service = service;
     }
 
     public void processContract(Contract contract, Integer months){
-
         if(months <= 0){
             return;
         }else {
             double installmentValue = contract.getTotalValue() / months;
+            System.out.println();
             System.out.println("Installment Value: " + installmentValue);
             for (int i = 1; i <= months; i++){
                 Date date = contract.getDate();
@@ -32,23 +32,14 @@ public class ContractService {
                 cal.add(Calendar.MONTH, i);
 
 
-                double result = service.interest(installmentValue, i);
-                double result2 = service.paymentFee(result);
+                double interest = service.interest(installmentValue, i);
+                double fee = service.paymentFee(installmentValue + interest);
+                double quota = installmentValue + interest + fee;
 
-                installments.add(new Installment(cal.getTime(), result2));
+                contract.getInstallments().add(new Installment(cal.getTime(), quota));
 
             }
         }
     }
 
-    public List<Installment> getInstallments() {
-        return installments;
-    }
-
-    public String toString() {
-        for (Installment i : installments){
-            System.out.println(sdf.format(i.getDueDate()) + " - " + i.getAmount());
-        }
-        return "";
-    }
 }

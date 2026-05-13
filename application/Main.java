@@ -1,9 +1,7 @@
 package application;
 
 
-import entities.Contract;
-import entities.ContractService;
-import entities.Installment;
+import entities.*;
 
 import java.text.ParseException;
 
@@ -25,17 +23,20 @@ public class Main {
         Date date = sdf.parse(sc.next());
         System.out.print("Valor do contrato: ");
         double valor = sc.nextDouble();
+
+        Contract contrato = new Contract(num, date, valor);
+
         System.out.print("Entre com o numero de parcelas: ");
         int parcelas = sc.nextInt();
 
-        Contract contrato = new Contract(num, date, valor);
-        ContractService service = new ContractService();
-
+        ContractService service = new ContractService(new PaypalService());
         service.processContract(contrato, parcelas);
 
         System.out.println();
         System.out.println("PARCELAS: ");
-        System.out.println(service);
+        for(Installment i : contrato.getInstallments()){
+            System.out.println(i);
+        }
 
 
 
