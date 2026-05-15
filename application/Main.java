@@ -5,39 +5,33 @@ import entities.*;
 
 import java.text.ParseException;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) throws ParseException{
         Scanner sc = new Scanner(System.in);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        List<Product> list = new ArrayList<>();
 
-        System.out.println("Entre com os dados do contrato: ");
-        System.out.print("Numero: ");
-        int num = sc.nextInt();
-        System.out.print("Data (dd/MM/yyyy): ");
-        Date date = sdf.parse(sc.next());
-        System.out.print("Valor do contrato: ");
-        double valor = sc.nextDouble();
+        Product p1 = new Product("Macbook", 9900.00);
+        Product p2 = new Product("TV", 4000.45);
+        Product p3 = new Product("Iphone 17", 5000.30);
+        Product p4 = new Product("Microondas", 2400.00);
+        Product p5 = new Product("Ventildador", 100.00);
 
-        Contract contrato = new Contract(num, date, valor);
+        list.add(p1);
+        list.add(p2);
+        list.add(p3);
+        list.add(p4);
+        list.add(p5);
 
-        System.out.print("Entre com o numero de parcelas: ");
-        int parcelas = sc.nextInt();
 
-        ContractService service = new ContractService(new PaypalService());
-        service.processContract(contrato, parcelas);
 
-        System.out.println();
-        System.out.println("PARCELAS: ");
-        for(Installment i : contrato.getInstallments()){
-            System.out.println(i);
+        Collections.sort(list);
+        for (Product p : list){
+            System.out.println(p);
         }
-
 
 
         sc.close();
