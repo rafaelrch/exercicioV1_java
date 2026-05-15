@@ -1,12 +1,13 @@
 package application;
 
-import entities.Cart;
-import entities.FixedDiscount;
-import entities.NoDiscount;
-import entities.PercentageDiscount;
+import entities.BankSlip;
+import entities.CreditCard;
+import entities.Order;
+import entities.Pix;
 
 import java.text.ParseException;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
@@ -14,21 +15,25 @@ public class Main {
     public static void main(String[] args) throws ParseException{
         Scanner sc = new Scanner(System.in);
 
-        Cart c1 = new Cart(new PercentageDiscount(10.0));
-        c1.add(100.0);
-        c1.add(50.0);
+        List<Order> list = new ArrayList<>();
 
-        Cart c2 = new Cart(new FixedDiscount(30.0));
-        c2.add(100.0);
-        c2.add(50.0);
+        Order order1 = new Order(1111, 1000.0, new CreditCard(9999));
+        Order order2 = new Order(2222, 2000.0, new Pix("rafael@gmail.com"));
+        Order order3 = new Order(3333, 3000.0, new BankSlip(LocalDate.of(2024, 12, 20)));
+        Order order4 = new Order(3333, 4000.0, new CreditCard(8888));
 
-        Cart c3 = new Cart(new NoDiscount());
-        c3.add(100.0);
-        c3.add(50.0);
 
-        System.out.println("Total com 10% de desconto: " + c1.total());
-        System.out.println("Total com R$30 de desconto: " + c2.total());
-        System.out.println("Total sem desconto: " + c3.total());
+        list.add(order1);
+        list.add(order2);
+        list.add(order3);
+        list.add(order4);
+
+        Collections.sort(list);
+
+        for (Order o : list){
+            o.getPaymentMethod().printReceipt(o.getTotal());
+        }
+
 
         sc.close();
     }
