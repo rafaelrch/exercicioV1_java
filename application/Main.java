@@ -1,47 +1,54 @@
 package application;
 
-import entities.Course;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
-
 import java.util.*;
+
+import static java.lang.Integer.parseInt;
 
 public class Main {
 
     public static void main(String[] args) throws ParseException{
         Scanner sc = new Scanner(System.in);
 
+        Map<String, Integer> urna = new HashMap();
 
-       Set<Integer> a = new HashSet<>();
-       Set<Integer> b = new HashSet<>();
-       Set<Integer> c = new HashSet<>();
+        System.out.print("Enter file full path: ");
+        String path = sc.nextLine();
 
-        System.out.print("How many students for course A? ");
-        int nStudents = sc.nextInt();
-        for (int i = 0; i < nStudents; i++){
-            int id = sc.nextInt();
-            a.add(id);
-        }
+       try (BufferedReader br = new BufferedReader(new FileReader(path))){
 
-        System.out.print("How many students for course B? ");
-        int nStudents2 = sc.nextInt();
-        for (int i = 0; i < nStudents2; i++){
-            int id = sc.nextInt();
-            b.add(id);
-        }
+           String line = br.readLine();
+           while (line != null){
+               String[] fields = line.split(",");
+               String name = fields[0];
+               int votos = parseInt(fields[1]);
 
-        System.out.print("How many students for course C? ");
-        int nStudents3 = sc.nextInt();
-        for (int i = 0; i < nStudents3; i++){
-            int id = sc.nextInt();
-            c.add(id);
-        }
+               if(urna.containsKey(name)){
+                   int votesAteAgora = urna.get(name);
+                   urna.put(name, votos + votesAteAgora);
+               }else{
+                   urna.put(name, votos);
+               }
+             //  /Users/rafaelrocha/Documents/PROJETOS/testes-java/exercicio 1/application/in.csv
+               line = br.readLine();
+           }
 
-        Set<Integer> set = new HashSet<>(a);
-        set.addAll(b);
-        set.addAll(c);
 
-        System.out.println("Total students: " + set.size());
-        sc.close();
+           for (String value : urna.keySet()){
+               System.out.println(value + ": " + urna.get(value));
+           }
+
+
+
+       } catch (IOException e) {
+           throw new RuntimeException(e);
+       }
+
+       sc.close();
     }
 }
