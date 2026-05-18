@@ -1,9 +1,11 @@
 package application;
 
-import java.text.ParseException;
+
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 
 public class Main {
 
@@ -17,10 +19,11 @@ public class Main {
         list.add(new Product("Tablet", 350.50));
         list.add(new Product("HD Case", 80.90));
 
+        Function<Product, String> func = p -> p.getName().toUpperCase();
 
-        list.forEach(p -> p.setPrice(p.getPrice() * 1.1));
+        List<String> names = list.stream().map(func).collect(Collectors.toList());
 
-        list.forEach(System.out::println);
+        names.forEach(System.out::println);
 
        sc.close();
     }
