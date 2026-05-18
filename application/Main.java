@@ -2,6 +2,7 @@ package application;
 
 import java.text.ParseException;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class Main {
@@ -16,11 +17,11 @@ public class Main {
         list.add(new Product("Tablet", 350.50));
         list.add(new Product("HD Case", 80.90));
 
-        list.removeIf(p -> p.getPrice() >= 100.0);
+        Consumer<Product> cons = p -> p.setPrice(p.getPrice() * 1.1);
 
-        for(Product p : list){
-            System.out.println(p);
-        }
+        list.forEach(cons);
+
+        list.forEach(System.out::println);
 
        sc.close();
     }
