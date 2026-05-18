@@ -1,53 +1,25 @@
 package application;
 
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
-import static java.lang.Integer.parseInt;
-
 public class Main {
 
-    public static void main(String[] args) throws ParseException{
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        Map<String, Integer> urna = new HashMap();
+        List<Product> list = new ArrayList<>();
 
-        System.out.print("Enter file full path: ");
-        String path = sc.nextLine();
+        list.add(new Product("TV", 900.00));
+        list.add(new Product("Mouse", 50.00));
+        list.add(new Product("Tablet", 350.50));
+        list.add(new Product("HD Case", 80.90));
 
-       try (BufferedReader br = new BufferedReader(new FileReader(path))){
+        list.removeIf(new ProductPredicate());
 
-           String line = br.readLine();
-           while (line != null){
-               String[] fields = line.split(",");
-               String name = fields[0];
-               int votos = parseInt(fields[1]);
-
-               if(urna.containsKey(name)){
-                   int votesAteAgora = urna.get(name);
-                   urna.put(name, votos + votesAteAgora);
-               }else{
-                   urna.put(name, votos);
-               }
-             //  /Users/rafaelrocha/Documents/PROJETOS/testes-java/exercicio 1/application/in.csv
-               line = br.readLine();
-           }
-
-
-           for (String value : urna.keySet()){
-               System.out.println(value + ": " + urna.get(value));
-           }
-
-
-
-       } catch (IOException e) {
-           throw new RuntimeException(e);
-       }
+        for(Product p : list){
+            System.out.println(p);
+        }
 
        sc.close();
     }
