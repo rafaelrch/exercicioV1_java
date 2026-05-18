@@ -2,6 +2,7 @@ package application;
 
 import java.text.ParseException;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Main {
 
@@ -15,7 +16,9 @@ public class Main {
         list.add(new Product("Tablet", 350.50));
         list.add(new Product("HD Case", 80.90));
 
-        list.removeIf(new ProductPredicate());
+
+        Predicate<Product> pred = p -> p.getPrice() >= 100.0;
+        list.removeIf(pred);
 
         for(Product p : list){
             System.out.println(p);
